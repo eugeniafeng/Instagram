@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLogoutButton (View view) {
         ParseUser.logOut();
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, LoginSignupActivity.class);
         startActivity(i);
         finish();
     }

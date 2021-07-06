@@ -8,20 +8,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.instagram.databinding.ActivityLoginBinding;
+import com.example.instagram.databinding.ActivityLoginSignupBinding;
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginSignupActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginActivity";
-    private ActivityLoginBinding binding;
+    private static final String TAG = "LoginSignupActivity";
+    private ActivityLoginSignupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginSignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         if (ParseUser.getCurrentUser() != null) {
@@ -34,6 +36,13 @@ public class LoginActivity extends AppCompatActivity {
             String password = binding.etPassword.getText().toString();
             loginUser(username, password);
         });
+
+        binding.btnSignup.setOnClickListener(v -> {
+            Log.i(TAG, "onClick signup button");
+            String username = binding.etUsername.getText().toString();
+            String password = binding.etPassword.getText().toString();
+            signupUser(username, password);
+        });
     }
 
     private void loginUser(String username, String password) {
@@ -43,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO: better error handling
                 Log.e(TAG, "Issue with login", e);
                 Toast.makeText(
-                        LoginActivity.this,
+                        LoginSignupActivity.this,
                         "Issue with login!",
                         Toast.LENGTH_SHORT)
                         .show();
@@ -51,10 +60,35 @@ public class LoginActivity extends AppCompatActivity {
             }
             goMainActivity();
             Toast.makeText(
-                    LoginActivity.this,
+                    LoginSignupActivity.this,
                     "Success!",
                     Toast.LENGTH_SHORT)
                     .show();
+        });
+    }
+
+    private void signupUser(String username, String password) {
+        ParseUser user = new ParseUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.signUpInBackground(e -> {
+            if (e != null) {
+                // TODO: better error handling
+                Log.e(TAG, "Issue with signup", e);
+                Toast.makeText(
+                        LoginSignupActivity.this,
+                        "Issue with sign up!",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                return;
+            }
+            goMainActivity();
+            Toast.makeText(
+                    LoginSignupActivity.this,
+                    "Success!",
+                    Toast.LENGTH_SHORT)
+                    .show();
+            Log.i(TAG, "Current user: " + ParseUser.getCurrentUser().getUsername());
         });
     }
 
