@@ -1,40 +1,41 @@
 package com.example.instagram;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.instagram.databinding.ActivityMainBinding;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    private static final int IMAGE_WIDTH = 500;
 
     private ActivityMainBinding binding;
     private File photoFile;
     private String photoFileName = "photo.jpg";
+    private String photoFileNameNoExt = "photo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +75,61 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
+                // set photoFile again in case it is reset by changed orientation
+                photoFile = getPhotoFileUri(photoFileName);
                 // by this point we have the camera photo on disk
-                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // RESIZE BITMAP if necessary
+                // rotate so saves in correct orientation
+                Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
+                // RESIZE BITMAP
+                Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(takenImage, IMAGE_WIDTH);
+                // Write smaller bitmap back to disk
+                // Configure byte output stream
+//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//                // Compress the image further
+//                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+                // Create a new file for the resized bitmap
+                photoFile = getPhotoFileUri(photoFileNameNoExt + "_resized.jpg");
+//                try {
+//                    FileOutputStream fos = new FileOutputStream(photoFile);
+//                    // Write the bytes of the bitmap to file
+//                    fos.write(bytes.toByteArray());
+//                    fos.close();
+//                } catch (IOException e) {
+//                    Log.e("Error creating file ", e.toString());
+//                }
                 // Load the taken image into a preview
-                binding.ivPostImage.setImageBitmap(takenImage);
+                binding.ivPostImage.setImageBitmap(resizedBitmap);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+        // Create and configure BitmapFactory
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoFilePath, bounds);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
+        // Read EXIF Data
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(photoFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ?
+                Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        // Rotate Bitmap
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        return Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
     }
 
     private void launchCamera() {
