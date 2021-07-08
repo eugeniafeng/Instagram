@@ -44,14 +44,15 @@
         android:layout_weight="0"
         android:background="#00FFFFFF"
         android:text="@string/login"
-        android:textColor="#2196F3" />
+        android:textColor="@color/button" />
 
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:backgroundTint="#2196F3"
+        android:backgroundTint="@color/button"
+        android:textColor="@color/white"
         android:text="@string/signup" />
 
 </LinearLayout>

@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etDescription"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@color/button"
+        android:textColor="@color/white"
         android:text="@string/take_picture" />
 
     <ImageView
@@ -35,6 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ivPostImage"
+        android:backgroundTint="@color/button"
+        android:textColor="@color/white"
         android:layout_marginTop="5dp"
         android:text="@string/submit" />
 
@@ -47,6 +51,8 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:onClick="onLogoutButton"
+        android:backgroundTint="@color/button"
+        android:textColor="@color/white"
         android:text="@string/logout"
         tools:layout_editor_absoluteX="310dp" />
 
@@ -58,6 +64,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/button"
+        android:textColor="@color/white"
         android:onClick="onFeedButton"
         android:text="@string/feed" />
 

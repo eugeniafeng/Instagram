@@ -1,5 +1,6 @@
 package com.example.instagram.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -38,6 +39,9 @@ public class LoginSignupActivity extends AppCompatActivity {
             String password = binding.etPassword.getText().toString();
             signupUser(username, password);
         });
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
     private void loginUser(String username, String password) {
