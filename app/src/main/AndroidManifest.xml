@@ -21,7 +21,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Instagram">
-
         <!-- Wraps File objects as content provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -31,9 +30,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
-        </provider>
-
-        <!-- Launch login/signup first -->
+        </provider> <!-- Launch login/signup first -->
         <activity android:name=".activities.LoginSignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,8 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"/>
-        <activity android:name=".activities.FeedActivity"/>
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.FeedActivity" />
+        <activity android:name=".activities.PostDetailsActivity" />
     </application>
 
 </manifest>
