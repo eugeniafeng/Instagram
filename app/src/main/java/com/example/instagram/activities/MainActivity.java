@@ -116,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(PAUSE_KEY, 1);
+        // marker for if the image view has an image in it
+        int pause_val = binding.ivPostImage.getDrawable() == null ? 0 : 1;
+        outState.putInt(PAUSE_KEY, pause_val);
     }
 
     public Bitmap rotateBitmapOrientation(String photoFilePath) {
