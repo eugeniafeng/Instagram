@@ -1,7 +1,8 @@
-package com.example.instagram;
+package com.example.instagram.utils;
 
 import android.app.Application;
 
+import com.example.instagram.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

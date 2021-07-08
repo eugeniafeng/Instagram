@@ -1,15 +1,15 @@
-package com.example.instagram;
+package com.example.instagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.instagram.utils.Constants;
+import com.example.instagram.adapters.PostsAdapter;
 import com.example.instagram.databinding.ActivityFeedBinding;
-import com.parse.FindCallback;
-import com.parse.ParseException;
+import com.example.instagram.models.Post;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;

@@ -1,19 +1,14 @@
-package com.example.instagram;
+package com.example.instagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.instagram.databinding.ActivityLoginSignupBinding;
-import com.parse.LogInCallback;
-import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 public class LoginSignupActivity extends AppCompatActivity {
 

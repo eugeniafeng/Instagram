@@ -1,4 +1,4 @@
-package com.example.instagram;
+package com.example.instagram.utils;
 
 public class Constants {
     public static final String KEY_DESCRIPTION = "description";

@@ -1,4 +1,4 @@
-package com.example.instagram;
+package com.example.instagram.utils;
 
 import android.graphics.Bitmap;
 import android.util.Log;

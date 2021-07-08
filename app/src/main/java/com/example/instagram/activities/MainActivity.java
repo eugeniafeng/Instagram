@@ -1,4 +1,4 @@
-package com.example.instagram;
+package com.example.instagram.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +17,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.instagram.utils.BitmapScaler;
 import com.example.instagram.databinding.ActivityMainBinding;
+import com.example.instagram.models.Post;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
