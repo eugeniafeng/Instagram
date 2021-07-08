@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.instagram.utils.BitmapScaler;
-import com.example.instagram.databinding.ActivityMainBinding;
+import com.example.instagram.databinding.ActivityComposeBinding;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -28,14 +28,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class ComposeActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private static final int IMAGE_WIDTH = 500;
     private static final String PAUSE_KEY = "pause";
 
-    private ActivityMainBinding binding;
+    private ActivityComposeBinding binding;
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private String photoFileNameResized = "photo_resized.jpg";
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityComposeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // if user rotates the phone, restores the image view
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             String description = binding.etDescription.getText().toString();
             if (description.isEmpty()) {
                 Toast.makeText(
-                        MainActivity.this,
+                        ComposeActivity.this,
                         "Description cannot be empty",
                         Toast.LENGTH_SHORT)
                         .show();
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (photoFile == null || binding.ivPostImage.getDrawable() == null) {
                 Toast.makeText(
-                        MainActivity.this,
+                        ComposeActivity.this,
                         "There is no image!",
                         Toast.LENGTH_SHORT)
                         .show();
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(
-                MainActivity.this,
+                ComposeActivity.this,
                 "com.codepath.fileprovider.instagram",
                 photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             if (e != null) {
                 Log.e(TAG, "Error while saving", e);
                 Toast.makeText(
-                        MainActivity.this,
+                        ComposeActivity.this,
                         "Error while saving!",
                         Toast.LENGTH_SHORT)
                         .show();
