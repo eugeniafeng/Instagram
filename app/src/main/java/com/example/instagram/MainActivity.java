@@ -1,5 +1,6 @@
 package com.example.instagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -31,11 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private static final int IMAGE_WIDTH = 500;
+    private static final String PAUSE_KEY = "pause";
 
     private ActivityMainBinding binding;
     private File photoFile;
     private String photoFileName = "photo.jpg";
-    private String photoFileNameNoExt = "photo";
+    private String photoFileNameResized = "photo_resized.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 //        queryPosts();
+
+        // if user rotates the phone, restores the image view
+        if (savedInstanceState != null && savedInstanceState.getInt(PAUSE_KEY) == 1) {
+            photoFile = getPhotoFileUri(photoFileNameResized);
+            Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
+            binding.ivPostImage.setImageBitmap(takenImage);
+        }
 
         binding.btnCaptureImage.setOnClickListener(v -> launchCamera());
 
@@ -84,25 +93,31 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(takenImage, IMAGE_WIDTH);
                 // Write smaller bitmap back to disk
                 // Configure byte output stream
-//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                // Compress the image further
-//                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                // Compress the image further
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
                 // Create a new file for the resized bitmap
-                photoFile = getPhotoFileUri(photoFileNameNoExt + "_resized.jpg");
-//                try {
-//                    FileOutputStream fos = new FileOutputStream(photoFile);
-//                    // Write the bytes of the bitmap to file
-//                    fos.write(bytes.toByteArray());
-//                    fos.close();
-//                } catch (IOException e) {
-//                    Log.e("Error creating file ", e.toString());
-//                }
+                photoFile = getPhotoFileUri(photoFileNameResized);
+                try {
+                    FileOutputStream fos = new FileOutputStream(photoFile);
+                    // Write the bytes of the bitmap to file
+                    fos.write(bytes.toByteArray());
+                    fos.close();
+                } catch (IOException e) {
+                    Log.e("Error creating file ", e.toString());
+                }
                 // Load the taken image into a preview
                 binding.ivPostImage.setImageBitmap(resizedBitmap);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(PAUSE_KEY, 1);
     }
 
     public Bitmap rotateBitmapOrientation(String photoFilePath) {
@@ -212,5 +227,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, LoginSignupActivity.class);
         startActivity(i);
         finish();
+    }
+
+    public void onFeedButton (View view) {
+        // Navigate to FeedActivity
+        Intent i = new Intent(this, FeedActivity.class);
+        startActivity(i);
     }
 }
