@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <queries>
+
         <!-- Camera -->
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -21,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Instagram">
 
-<!--        Wraps File objects as content provider-->
+        <!-- Wraps File objects as content provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.codepath.fileprovider.instagram"
@@ -32,7 +33,7 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-<!--        Launch login/signup first-->
+        <!-- Launch login/signup first -->
         <activity android:name=".LoginSignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,8 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".FeedActivity"/>
     </application>
 
 </manifest>
