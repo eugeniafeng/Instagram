@@ -3,6 +3,8 @@ package com.example.instagram.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
@@ -31,7 +33,9 @@ public class PostDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "Post: " + post.getDescription() +
                 ", username: " + post.getUser().getUsername());
 
-        binding.tvDescription.setText(post.getDescription());
+        Spanned description = Html.fromHtml(
+                "<b>" + post.getUser().getUsername() + "</b>  " + post.getDescription());
+        binding.tvDescription.setText(description);
         binding.tvUsername.setText(post.getUser().getUsername());
         binding.tvTimestamp.setText(Post.calculateTimeAgo(post.getCreatedAt()));
         ParseFile image = post.getImage();

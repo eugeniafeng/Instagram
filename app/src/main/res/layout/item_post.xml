@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvUsername"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="12dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="eugenia" />
 
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
+        android:layout_below="@id/tvUsername"
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -25,7 +26,63 @@
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@id/ivHeart"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:text="caption" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvUsername"
+        android:layout_alignBottom="@id/tvUsername"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/ufi_more" />
+
+    <ImageView
+        android:id="@+id/ivHeart"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/ivImage"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="7dp"
+        app:srcCompat="@drawable/ufi_heart_icon" />
+
+    <ImageView
+        android:id="@+id/ivComment"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/ivHeart"
+        android:layout_alignTop="@id/ivHeart"
+        android:layout_marginStart="15dp"
+        app:srcCompat="@drawable/ufi_comment" />
+
+    <ImageView
+        android:id="@+id/ivMessage"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/ivImage"
+        android:layout_toEndOf="@id/ivComment"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="3dp"
+        app:srcCompat="@drawable/ufi_new_direct" />
+
+    <ImageView
+        android:id="@+id/ivSave"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/ivImage"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="12dp"
+        app:tint="@color/black"
+        app:srcCompat="@drawable/ufi_save_icon" />
+
+</RelativeLayout>

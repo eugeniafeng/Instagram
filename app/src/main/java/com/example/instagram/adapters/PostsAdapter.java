@@ -2,6 +2,8 @@ package com.example.instagram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +89,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
 
         public void bind(Post post) {
-            binding.tvDescription.setText(post.getDescription());
+            Spanned description = Html.fromHtml(
+                    "<b>" + post.getUser().getUsername() + "</b>  " + post.getDescription());
+            binding.tvDescription.setText(description);
             binding.tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null) {
