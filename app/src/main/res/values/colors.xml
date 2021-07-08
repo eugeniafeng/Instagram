@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="instagram_pink">#C32AA3</color>
+    <color name="instagram_blue">#4C5FD7</color>
+    <color name="instagram_purple">#7232BD</color>
+    <color name="instagram_orange">#F46F30</color>
+    <color name="instagram_yellow">#FFDC7D</color>
 </resources>

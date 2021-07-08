@@ -4,10 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="100dp"
     android:orientation="vertical"
-    android:layout_centerVertical="true"
+    android:gravity="center"
     tools:context=".activities.LoginSignupActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="0"
+        android:paddingBottom="10dp"
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/etUsername"
@@ -32,13 +42,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="@string/login" />
+        android:background="#00FFFFFF"
+        android:text="@string/login"
+        android:textColor="#2196F3" />
 
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
+        android:backgroundTint="#2196F3"
         android:text="@string/signup" />
 
 </LinearLayout>
