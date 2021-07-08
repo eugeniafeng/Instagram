@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,11 @@ public class FeedActivity extends AppCompatActivity {
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(this, allPosts);
+
+        binding.swipeContainer.setOnRefreshListener(() -> {
+            queryPosts();
+            binding.swipeContainer.setRefreshing(false);
+        });
 
         // set the adapter on the recycler view
         binding.rvPosts.setAdapter(adapter);
@@ -63,9 +69,9 @@ public class FeedActivity extends AppCompatActivity {
                         ", username: " + post.getUser().getUsername());
             }
 
-            // save received posts to list and notify adapter of new data
-            allPosts.addAll(posts);
-            adapter.notifyDataSetChanged();
+            // clear list and add all new elements, notify adapter
+            adapter.clear();
+            adapter.addAll(posts);
         });
     }
 }
