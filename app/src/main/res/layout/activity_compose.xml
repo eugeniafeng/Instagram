@@ -8,17 +8,11 @@
     android:padding="10dp"
     tools:context=".activities.ComposeActivity">
 
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/description" />
-
     <Button
         android:id="@+id/btnCaptureImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etDescription"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/button"
         android:textColor="@color/white"
@@ -32,11 +26,19 @@
         android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivPostImage"
+        android:layout_marginTop="5dp"
+        android:hint="@string/description" />
+
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivPostImage"
+        android:layout_below="@id/etDescription"
         android:backgroundTint="@color/button"
         android:textColor="@color/white"
         android:layout_marginTop="5dp"
