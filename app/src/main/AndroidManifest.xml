@@ -38,8 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ComposeActivity" />
-        <activity android:name=".activities.FeedActivity" />
+        <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.PostDetailsActivity" />
     </application>
 

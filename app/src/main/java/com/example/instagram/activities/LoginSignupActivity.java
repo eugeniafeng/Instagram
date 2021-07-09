@@ -92,7 +92,7 @@ public class LoginSignupActivity extends AppCompatActivity {
     }
 
     private void goMainActivity() {
-        Intent i = new Intent(this, ComposeActivity.class);
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         // Dismiss this activity so back button won't return to login/signup
         finish();

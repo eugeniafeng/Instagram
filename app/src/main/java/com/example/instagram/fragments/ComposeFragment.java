@@ -21,9 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.instagram.R;
-import com.example.instagram.activities.ComposeActivity;
-import com.example.instagram.activities.FeedActivity;
 import com.example.instagram.activities.LoginSignupActivity;
 import com.example.instagram.databinding.FragmentComposeBinding;
 import com.example.instagram.models.Post;
@@ -38,11 +35,6 @@ import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ComposeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ComposeFragment extends Fragment {
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
@@ -63,7 +55,17 @@ public class ComposeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compose, container, false);
+        binding = FragmentComposeBinding.inflate(inflater, container, false);
+
+        binding.btnLogout.setOnClickListener(v -> {
+            ParseUser.logOut();
+            // Return to sign up/log in and dismiss the main activity so user cannot use back button
+            Intent i = new Intent(getContext(), LoginSignupActivity.class);
+            startActivity(i);
+            getActivity().finish();
+        });
+
+        return binding.getRoot();
     }
 
     @Override
@@ -113,6 +115,7 @@ public class ComposeFragment extends Fragment {
                 // by this point we have the camera photo on disk
                 // rotate so saves in correct orientation
                 Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
+                takenImage = cropSquare(takenImage);
                 // RESIZE BITMAP
                 Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(takenImage, IMAGE_WIDTH);
                 // Write smaller bitmap back to disk
@@ -171,6 +174,12 @@ public class ComposeFragment extends Fragment {
         Matrix matrix = new Matrix();
         matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
         return Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+    }
+
+    private Bitmap cropSquare(Bitmap bitmap) {
+        // From https://stackoverflow.com/questions/6908604/android-crop-center-of-bitmap
+        int minLength = Math.min(bitmap.getHeight(), bitmap.getWidth());
+        return Bitmap.createBitmap(bitmap, 0, 0, minLength, minLength);
     }
 
     private void launchCamera() {
@@ -232,19 +241,5 @@ public class ComposeFragment extends Fragment {
             binding.etDescription.setText("");
             binding.ivPostImage.setImageResource(0);
         });
-    }
-
-    public void onLogoutButton (View view) {
-        ParseUser.logOut();
-        // Return to sign up/log in and dismiss the main activity so user cannot use back button
-        Intent i = new Intent(getContext(), LoginSignupActivity.class);
-        startActivity(i);
-        getActivity().finish();
-    }
-
-    public void onFeedButton (View view) {
-        // Navigate to FeedActivity
-        Intent i = new Intent(getContext(), FeedActivity.class);
-        startActivity(i);
     }
 }

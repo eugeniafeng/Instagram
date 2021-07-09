@@ -52,23 +52,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        android:onClick="onLogoutButton"
         android:backgroundTint="@color/button"
         android:textColor="@color/white"
         android:text="@string/logout"
         tools:layout_editor_absoluteX="310dp" />
-
-    <Button
-        android:id="@+id/btnFeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/button"
-        android:textColor="@color/white"
-        android:onClick="onFeedButton"
-        android:text="@string/feed" />
 
 </RelativeLayout>

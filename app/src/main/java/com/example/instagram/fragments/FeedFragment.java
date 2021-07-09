@@ -1,43 +1,57 @@
-package com.example.instagram.activities;
+package com.example.instagram.fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.example.instagram.utils.Constants;
+import com.example.instagram.R;
 import com.example.instagram.adapters.PostsAdapter;
-import com.example.instagram.databinding.ActivityFeedBinding;
+import com.example.instagram.databinding.FragmentFeedBinding;
 import com.example.instagram.models.Post;
+import com.example.instagram.utils.Constants;
 import com.example.instagram.utils.EndlessRecyclerViewScrollListener;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedFragment extends Fragment {
 
-    public static final String TAG = "FeedActivity";
+    private static final String TAG = "FeedFragment";
 
-    private ActivityFeedBinding binding;
+    private FragmentFeedBinding binding;
     private EndlessRecyclerViewScrollListener scrollListener;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
+    public FeedFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityFeedBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = FragmentFeedBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(this, allPosts);
+        adapter = new PostsAdapter(getContext(), allPosts);
 
         binding.swipeContainer.setOnRefreshListener(() -> {
             queryPosts();
@@ -47,7 +61,7 @@ public class FeedActivity extends AppCompatActivity {
         // set the adapter on the recycler view
         binding.rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.rvPosts.setLayoutManager(linearLayoutManager);
 
         // add scroll listener for endless scrolling
@@ -63,7 +77,7 @@ public class FeedActivity extends AppCompatActivity {
         queryPosts();
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
