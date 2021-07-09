@@ -29,7 +29,7 @@ public class FeedFragment extends Fragment {
     private static final String TAG = "FeedFragment";
 
     private FragmentFeedBinding binding;
-    private EndlessRecyclerViewScrollListener scrollListener;
+    protected EndlessRecyclerViewScrollListener scrollListener;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 

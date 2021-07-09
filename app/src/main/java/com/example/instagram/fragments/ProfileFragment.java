@@ -26,6 +26,7 @@ public class ProfileFragment extends FeedFragment {
             // clear list and add all new elements, notify adapter
             adapter.clear();
             adapter.addAll(posts);
+            scrollListener.resetState();
         });
     }
 
