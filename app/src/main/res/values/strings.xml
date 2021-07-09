@@ -9,4 +9,7 @@
     <string name="take_picture">Take Picture</string>
     <string name="submit">Submit</string>
     <string name="feed">Feed</string>
+    <string name="home">Home</string>
+    <string name="compose">Compose</string>
+    <string name="profile">Profile</string>
 </resources>
