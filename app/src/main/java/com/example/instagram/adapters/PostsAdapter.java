@@ -93,6 +93,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     "<b>" + post.getUser().getUsername() + "</b>  " + post.getDescription());
             binding.tvDescription.setText(description);
             binding.tvUsername.setText(post.getUser().getUsername());
+            binding.tvTimestamp.setText(Post.calculateTimeAgo(post.getCreatedAt()));
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(binding.ivImage);
