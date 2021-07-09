@@ -87,10 +87,12 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void loadMore(RecyclerView view) {
+        int currentSize = adapter.getItemCount();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Constants.KEY_USER);
         // find the next 20 posts
-        query.setLimit(adapter.getItemCount() + 20);
+        query.setSkip(currentSize);
+        query.setLimit(20);
         query.addDescendingOrder("createdAt");
         query.findInBackground((posts, e) -> {
             // check for errors
@@ -98,11 +100,10 @@ public class FeedActivity extends AppCompatActivity {
                 Log.e(TAG, "Issue with loading more posts", e);
                 return;
             }
-            // clear list and add all new elements, notify adapter
-            allPosts.clear();
+            // add all new elements, notify adapter
             allPosts.addAll(posts);
 
-            view.post(() -> adapter.notifyDataSetChanged());
+            view.post(() -> adapter.notifyItemRangeInserted(currentSize, allPosts.size()-1));
         });
     }
 }
