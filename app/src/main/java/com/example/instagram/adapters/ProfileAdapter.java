@@ -2,8 +2,6 @@ package com.example.instagram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.instagram.activities.PostDetailsActivity;
-import com.example.instagram.databinding.ItemPostBinding;
 import com.example.instagram.databinding.ItemProfileBinding;
 import com.example.instagram.models.Post;
 import com.example.instagram.utils.Constants;

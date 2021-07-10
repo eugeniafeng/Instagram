@@ -1,14 +1,13 @@
 package com.example.instagram.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
-import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityPostDetailsBinding;
 import com.example.instagram.models.Post;
 import com.example.instagram.utils.Constants;

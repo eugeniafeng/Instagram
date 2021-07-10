@@ -1,12 +1,12 @@
 package com.example.instagram.activities;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.instagram.databinding.ActivityLoginSignupBinding;
 import com.parse.ParseUser;
@@ -22,6 +22,7 @@ public class LoginSignupActivity extends AppCompatActivity {
         binding = ActivityLoginSignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // if already logged in, skip this activity
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
@@ -48,7 +49,6 @@ public class LoginSignupActivity extends AppCompatActivity {
         Log.i(TAG, "Attempting to login user " + username);
         ParseUser.logInInBackground(username, password, (user, e) -> {
             if (e != null) {
-                // TODO: better error handling
                 Log.e(TAG, "Issue with login", e);
                 Toast.makeText(
                         LoginSignupActivity.this,
@@ -72,7 +72,6 @@ public class LoginSignupActivity extends AppCompatActivity {
         user.setPassword(password);
         user.signUpInBackground(e -> {
             if (e != null) {
-                // TODO: better error handling
                 Log.e(TAG, "Issue with signup", e);
                 Toast.makeText(
                         LoginSignupActivity.this,

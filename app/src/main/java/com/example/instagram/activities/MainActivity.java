@@ -1,14 +1,14 @@
 package com.example.instagram.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityMainBinding;
@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new ProfileFragment();
                     break;
             }
-            fragmentManager.beginTransaction().replace(binding.flContainer.getId(), fragment).commit();
+            fragmentManager.beginTransaction()
+                    .replace(binding.flContainer.getId(), fragment)
+                    .commit();
             return true;
         });
         // Set default selection

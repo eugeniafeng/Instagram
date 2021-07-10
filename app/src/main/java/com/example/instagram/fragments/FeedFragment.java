@@ -1,6 +1,10 @@
 package com.example.instagram.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.instagram.R;
 import com.example.instagram.adapters.PostsAdapter;
 import com.example.instagram.databinding.FragmentFeedBinding;
 import com.example.instagram.models.Post;
@@ -96,6 +94,7 @@ public class FeedFragment extends Fragment {
             // clear list and add all new elements, notify adapter
             adapter.clear();
             adapter.addAll(posts);
+            // reset scroll after loading or refresh
             scrollListener.resetState();
         });
     }
@@ -116,8 +115,7 @@ public class FeedFragment extends Fragment {
             }
             // add all new elements, notify adapter
             allPosts.addAll(posts);
-
-            view.post(() -> adapter.notifyItemRangeInserted(currentSize, allPosts.size()-1));
+            view.post(() -> adapter.notifyItemRangeInserted(currentSize, allPosts.size() - 1));
         });
     }
 }

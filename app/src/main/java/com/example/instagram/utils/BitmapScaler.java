@@ -1,30 +1,25 @@
 package com.example.instagram.utils;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 // From https://gist.github.com/nesquena/3885707fd3773c09f1bb
-public class BitmapScaler
-{
+public class BitmapScaler {
     // scale and keep aspect ratio
-    public static Bitmap scaleToFitWidth(Bitmap b, int width)
-    {
+    public static Bitmap scaleToFitWidth(Bitmap b, int width) {
         float factor = width / (float) b.getWidth();
         return Bitmap.createScaledBitmap(b, width, (int) (b.getHeight() * factor), true);
     }
 
 
     // scale and keep aspect ratio
-    public static Bitmap scaleToFitHeight(Bitmap b, int height)
-    {
+    public static Bitmap scaleToFitHeight(Bitmap b, int height) {
         float factor = height / (float) b.getHeight();
         return Bitmap.createScaledBitmap(b, (int) (b.getWidth() * factor), height, true);
     }
 
 
     // scale and keep aspect ratio
-    public static Bitmap scaleToFill(Bitmap b, int width, int height)
-    {
+    public static Bitmap scaleToFill(Bitmap b, int width, int height) {
         float factorH = height / (float) b.getHeight();
         float factorW = width / (float) b.getWidth();
         float factorToUse = Math.min(factorH, factorW);
@@ -34,8 +29,7 @@ public class BitmapScaler
 
 
     // scale and don't keep aspect ratio
-    public static Bitmap stretchToFill(Bitmap b, int width, int height)
-    {
+    public static Bitmap stretchToFill(Bitmap b, int width, int height) {
         float factorH = height / (float) b.getHeight();
         float factorW = width / (float) b.getWidth();
         return Bitmap.createScaledBitmap(b, (int) (b.getWidth() * factorW),

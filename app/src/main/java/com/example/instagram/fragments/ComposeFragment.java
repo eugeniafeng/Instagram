@@ -7,12 +7,6 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -21,7 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.instagram.activities.LoginSignupActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+
 import com.example.instagram.databinding.FragmentComposeBinding;
 import com.example.instagram.models.Post;
 import com.example.instagram.utils.BitmapScaler;
@@ -40,12 +38,12 @@ public class ComposeFragment extends Fragment {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private static final int IMAGE_WIDTH = 500;
     private static final String PAUSE_KEY = "pause";
-    public static final String TAG = "ComposeFragment";
+    private static final String TAG = "ComposeFragment";
+    private static final String photoFileName = "photo.jpg";
+    private static final String photoFileNameResized = "photo_resized.jpg";
 
     private FragmentComposeBinding binding;
     private File photoFile;
-    private String photoFileName = "photo.jpg";
-    private String photoFileNameResized = "photo_resized.jpg";
 
     public ComposeFragment() {
         // Required empty public constructor
@@ -56,7 +54,6 @@ public class ComposeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentComposeBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
 
@@ -164,8 +161,16 @@ public class ComposeFragment extends Fragment {
         if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
         // Rotate Bitmap
         Matrix matrix = new Matrix();
-        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
-        return Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        matrix.setRotate(rotationAngle,
+                (float) bm.getWidth() / 2,
+                (float) bm.getHeight() / 2);
+        return Bitmap.createBitmap(bm,
+                0,
+                0,
+                bounds.outWidth,
+                bounds.outHeight,
+                matrix,
+                true);
     }
 
     private Bitmap cropSquare(Bitmap bitmap) {
@@ -207,7 +212,7 @@ public class ComposeFragment extends Fragment {
                 TAG);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(TAG, "failed to create directory");
         }
 

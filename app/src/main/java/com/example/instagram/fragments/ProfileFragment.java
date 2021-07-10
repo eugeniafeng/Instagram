@@ -27,11 +27,11 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
 
-    private FragmentProfileBinding binding;
     protected EndlessRecyclerViewScrollListener scrollListener;
+    protected List<Post> allPosts;
+    private FragmentProfileBinding binding;
     private ProfileAdapter adapter;
     private ParseUser user;
-    protected List<Post> allPosts;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -115,8 +115,7 @@ public class ProfileFragment extends Fragment {
             }
             // add all new elements, notify adapter
             allPosts.addAll(posts);
-
-            view.post(() -> adapter.notifyItemRangeInserted(currentSize, allPosts.size()-1));
+            view.post(() -> adapter.notifyItemRangeInserted(currentSize, allPosts.size() - 1));
         });
     }
 }
