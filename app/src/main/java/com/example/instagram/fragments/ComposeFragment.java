@@ -57,14 +57,6 @@ public class ComposeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentComposeBinding.inflate(inflater, container, false);
 
-        binding.btnLogout.setOnClickListener(v -> {
-            ParseUser.logOut();
-            // Return to sign up/log in and dismiss the main activity so user cannot use back button
-            Intent i = new Intent(getContext(), LoginSignupActivity.class);
-            startActivity(i);
-            getActivity().finish();
-        });
-
         return binding.getRoot();
     }
 
