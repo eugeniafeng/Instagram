@@ -28,7 +28,7 @@ public class FeedFragment extends Fragment {
 
     private static final String TAG = "FeedFragment";
 
-    private FragmentFeedBinding binding;
+    protected FragmentFeedBinding binding;
     protected EndlessRecyclerViewScrollListener scrollListener;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
@@ -100,7 +100,7 @@ public class FeedFragment extends Fragment {
         });
     }
 
-    private void loadMore(RecyclerView view) {
+    protected void loadMore(RecyclerView view) {
         int currentSize = adapter.getItemCount();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Constants.KEY_USER);
